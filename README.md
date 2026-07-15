@@ -155,7 +155,7 @@ def check_key(key, username_trial):
 ```
 
 From this you can see that the dynamic indexes are replaced by
-the 4^th^, 5^th^, 3^rd^, 6^th^, 2^nd^, 7^th^, 1^st^ and 8^th^ of
+the 4<sup>th</sup>, 5<sup>th</sup>, 3<sup>rd</sup>, 6<sup>th</sup>, 2<sup>nd</sup>, 7<sup>th</sup>, 1<sup>st</sup> and 8<sup>th</sup> of
 `hashlib.sha256(bUsername_trial).hexdigest()` in that order. You
 could do this by hand, but I decided to just write a short piece
 of code to do this for me, which you can see in `picoCTFgen.py`.
