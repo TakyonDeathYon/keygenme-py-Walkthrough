@@ -22,10 +22,10 @@ key_full_template_trial = key_part_static1_trial + key_part_dynamic1_trial + key
 ```
 
 This is promising, it appears to be exactly what we are looking for with the
-`key_full_template_trial` being `picoCTF{1n_7h3_kk3y_of_xxxxxxxx}`. However,
+`key_full_template_trial` variable being `picoCTF{1n_7h3_kk3y_of_xxxxxxxx}`. However,
 if we try and enter it as the solution, it is incorrect. Notice one of the
 variable names is `key_part_dynamic1_trial`, which suggests that it will
-change. However, it is unclear as to how.
+change, but it is unclear as to how.
 
 My next step is to continue looking through the code and try to get an
 overall idea of what it does. It has the following functions: `intro_trial()`,
@@ -113,8 +113,8 @@ def check_key(key, username_trial):
 
 ```
 
-In order to do this I am just going to edit the file to print this value
-before it does anything else on line 260:
+In order to find out this value, I am just going to edit the file to print
+it before it does anything else (on line 260):
 
 ```python
 print(hashlib.sha256(bUsername_trial).hexdigest())
@@ -127,9 +127,23 @@ inputted variable is `bUsername_trial` not `username_trial`, as
 `username_trial` is a local variable in `check_key()` (which happens to
 be named the same as a global variable!). Then when `check_key()` is
 called (in the `enter_license()` function), the value that is passed is
-`bUsername_trial`.
+`bUsername_trial`:
 
-Now if you run the file, you will get the following output:
+```python
+def enter_license():
+    user_key = input("\nEnter your license key: ")
+    user_key = user_key.strip()
+
+    global bUsername_trial
+
+    if check_key(user_key, bUsername_trial):
+        decrypt_full_version(user_key)
+    else:
+        print("\nKey is NOT VALID. Check your data entry.\n\n")
+```
+
+Now if you run the file (using `python3 keygenme-trial.py`), you will get
+the following output:
 
 ```
 ba6c084a4d888e1f7c3b0fc71d61c4625708bd915b5e0e60eb73e1667251b567
@@ -161,11 +175,8 @@ ba6c084a4d888e1f7c3b0fc71d61c4625708bd915b5e0e60eb73e1667251b567
 ```
 
 Now all there is to do is to replace the dynamic indexes of the flag with the
-correct indexes we can see in the `check_key()` function above.
-
-From this you can see that the dynamic indexes (indexes 24 - 31 of
-`key_full_template_trial`) are replaced by the 4<sup>th</sup>, 5<sup>th</sup>,
-3<sup>rd</sup>, 6<sup>th</sup>, 2<sup>nd</sup>, 7<sup>th</sup>,
+correct indexes we can see in the `check_key()` function above. Where the dynamic indexes (indexes 24 - 31 of `key_full_template_trial`) are replaced by the 4<sup>th</sup>,
+5<sup>th</sup>, 3<sup>rd</sup>, 6<sup>th</sup>, 2<sup>nd</sup>, 7<sup>th</sup>,
 1<sup>st</sup> and 8<sup>th</sup> of `hashlib.sha256(bUsername_trial).hexdigest()`
 in that order. You could do this by hand, but I decided to just write a short piece
 of code to do this for me, which you can see in `picoCTFgen.py`.
