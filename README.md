@@ -117,7 +117,7 @@ In order to find out this value, I am just going to edit the file to print
 it before it does anything else (on line 260):
 
 ```python
-print(hashlib.sha256(bUsername_trial).hexdigest())
+print(hashlib.sha256(bUsername_trial).hexdigest()) # This line is added
 # Enter main loop
 ui_flow()
 ```
