@@ -49,7 +49,8 @@ are being compared against different indexes of
 `hashlib.sha256(username_trial).hexdigest()`. So all we need to do is,
 find out what this value is and change the dynamic indexes to the indexes
 of this has specified in `check_key()`. All in all, this looks a lot more
-promising that `decrypt_full_version()`.
+promising than `decrypt_full_version()`, and so I will only look into that
+more if `check_key()` turns out to be a dead end.
 
 ```python
 def check_key(key, username_trial):
@@ -162,11 +163,16 @@ ba6c084a4d888e1f7c3b0fc71d61c4625708bd915b5e0e60eb73e1667251b567
 Now all there is to do is to replace the dynamic indexes of the flag with the
 correct indexes we can see in the `check_key()` function above.
 
-From this you can see that the dynamic indexes (indexes 23 - 31 of
+From this you can see that the dynamic indexes (indexes 24 - 31 of
 `key_full_template_trial`) are replaced by the 4<sup>th</sup>, 5<sup>th</sup>,
 3<sup>rd</sup>, 6<sup>th</sup>, 2<sup>nd</sup>, 7<sup>th</sup>,
-1<sup>st</sup> and 8<sup>th</sup> of `hashlib.sha256(bUsername_trial).hexdigest()` in that order. You could do this by hand, but I decided to just write a short piece
+1<sup>st</sup> and 8<sup>th</sup> of `hashlib.sha256(bUsername_trial).hexdigest()`
+in that order. You could do this by hand, but I decided to just write a short piece
 of code to do this for me, which you can see in `picoCTFgen.py`.
+
+All `picoCTFgen.py` does is take the variable `key_full_template_trial`,
+changes the relevant indexes using string slicing, then prints out the
+result.
 
 And voila! If we enter the key we get, it is correct:
 
