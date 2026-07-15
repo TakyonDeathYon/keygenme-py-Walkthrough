@@ -12,7 +12,6 @@ def test(key, hashed):
     # Just indexing to the correct position where the dynamic part starts
     i = len(key_part_static1_trial)
 
-    print(i, i + 8)
     # Make a string with the indexes at the correct positions
     out_key = (
         key[:i]
