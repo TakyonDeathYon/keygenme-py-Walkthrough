@@ -5,7 +5,7 @@ You can find the original challenge [here](https://learn.cylabacademy.org/librar
 In this repository you can find the file given to you in the challenge,
 `keygenme-trial.py`, and a file with some code to my solution, `picoCTFgen.py`.
 In this walkthrough, I will not only provide the answers, but also try
-to give context to my though process while solving it and how you might
+to give context to my thought process while solving it and how you might
 come to the same solution for a similar problem yourself.
 
 First things first, we are given no context to what the `keygenme-trial.py`
@@ -46,9 +46,9 @@ against the static part of `key_full_template_trial`, but then compares
 the indexes of the dynamic part to something else. This looks exactly
 like what we need. As you can see in the snippet below, the dynamic indexes
 are being compared against different indexes of
-`hashlib.sha256(username_trial).hexdigest()`. So all we need to do is,
+`hashlib.sha256(username_trial).hexdigest()`. So all we need to do is
 find out what this value is and change the dynamic indexes to the indexes
-of this has specified in `check_key()`. All in all, this looks a lot more
+of this as specified in `check_key()`. All in all, this looks a lot more
 promising than `decrypt_full_version()`, and so I will only look into that
 more if `check_key()` turns out to be a dead end.
 
